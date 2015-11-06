@@ -22,7 +22,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase{
     {
         $this->title = 'product title';
         $this->unitPrice = 44.90;
-        $this->size = 7.9;
+        $this->size = 1536;
         $this->description = 'product description';
     }
 
@@ -31,8 +31,8 @@ class ProductTest extends \PHPUnit_Framework_TestCase{
         $product = new Product($this->title, $this->unitPrice, $this->size, $this->description);
 
         $this->assertEquals($this->title, $product->getTitle());
-        $this->assertEquals($this->unitPrice, $product->getUnitPrice());
-        $this->assertEquals($this->size, $product->getSize());
+        $this->assertEquals(number_format($this->unitPrice,2), $product->getUnitPrice());
+        $this->assertEquals('1.5kb', $product->getSize());
         $this->assertEquals($this->description, $product->getDescription());
     }
 

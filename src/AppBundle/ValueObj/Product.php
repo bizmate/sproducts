@@ -25,9 +25,9 @@ class Product {
         if( is_double($unitPrice) === false || 0 > $unitPrice){
             throw new \InvalidArgumentException('Unit price must be a number bigger or equal to 0');
         }
-        $this->unitPrice = $unitPrice;
+        $this->unitPrice = number_format($unitPrice, 2);
 
-        $this->size = $size;
+        $this->size = round( $size/1024 , 2 ) . 'kb';
         $this->description = $description;
     }
 

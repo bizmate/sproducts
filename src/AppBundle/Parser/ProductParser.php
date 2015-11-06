@@ -8,6 +8,8 @@
 
 namespace AppBundle\Parser;
 
+use AppBundle\ValueObj\Product;
+use AppBundle\ValueObj\ProductsResponse;
 use Symfony\Component\DomCrawler as DomCrawler;
 use GuzzleHttp\Client as GuzzleClient;
 
@@ -41,7 +43,11 @@ class ProductParser {
         $productsPageHTML = $this->pageFetcher->fetchHtml($url);
         $incompleteTmpProducts = $this->getFirstPageAttributes($productsPageHTML);
 
-        return $this->addSizeDescriptionToProducts($incompleteTmpProducts);
+        $completeParsedProducts = $this->addSizeDescriptionToProducts($incompleteTmpProducts);
+
+        $products = $this->getProductsFromArray($completeParsedProducts );
+
+        return new ProductsResponse($products);
     }
 
     private function addSizeDescriptionToProducts($incompleteTmpProducts)
@@ -98,6 +104,25 @@ class ProductParser {
 
         });
         return $nodeValues;
+    }
+
+    private function getProductsFromArray( $fullParsedProducts    )
+    {
+        $products = array();
+        foreach($fullParsedProducts as $fullParsedProduct)
+        {
+            $products[] = new Product(
+                $fullParsedProduct['title'],
+                (double) $fullParsedProduct['price'],
+                $fullParsedProduct['size'],
+                $fullParsedProduct['description']
+            );
+        }
+
+        if(count($products) == 0 )
+            throw new \Exception('No products found, maybe needs new cookies');
+
+        return $products;
     }
 
 }
