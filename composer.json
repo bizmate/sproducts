@@ -20,7 +20,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "guzzlehttp/guzzle": "^6.1",
         "phpunit/phpunit": "^4.8",
-        "erivello/simple-html-dom-bundle": "dev-master"
+        "erivello/simple-html-dom-bundle": "dev-master",
+        "symfony/dom-crawler": "^2.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
