@@ -14,8 +14,15 @@ use Symfony\Component\DomCrawler as DomCrawler;
 use GuzzleHttp\Client as GuzzleClient;
 
 
+/**
+ * Class ProductParser
+ * @package AppBundle\Parser
+ */
 class ProductParser {
 
+    /**
+     * Product xpath constant
+     */
     const PRODUCT_XPATH = '//div[contains(concat(" ", normalize-space(@class), " "), " product ")]';
 
     /**
@@ -28,8 +35,14 @@ class ProductParser {
      */
     private $httpClient;
 
+    /**
+     * @var PageFetcher
+     */
     private $pageFetcher;
 
+    /**
+     *
+     */
     function __construct( )
     {
         //$this->crawler = $crawler;
@@ -38,6 +51,11 @@ class ProductParser {
         $this->pageFetcher = new PageFetcher();
     }
 
+    /**
+     * @param $url
+     * @return ProductsResponse
+     * @throws \Exception
+     */
     public function getProducts($url)
     {
         $productsPageHTML = $this->pageFetcher->fetchHtml($url);
@@ -50,6 +68,10 @@ class ProductParser {
         return new ProductsResponse($products);
     }
 
+    /**
+     * @param $incompleteTmpProducts
+     * @return mixed
+     */
     private function addSizeDescriptionToProducts($incompleteTmpProducts)
     {
         for($i =0; $i < count($incompleteTmpProducts); $i++ )
@@ -62,6 +84,10 @@ class ProductParser {
         return $incompleteTmpProducts;
     }
 
+    /**
+     * @param $html
+     * @return string
+     */
     private function getProductDescription($html)
     {
         /*
@@ -81,6 +107,10 @@ class ProductParser {
         return $description;
     }
 
+    /**
+     * @param $html
+     * @return array
+     */
     private function getFirstPageAttributes($html)
     {
         $crawler = new DomCrawler\Crawler($html);
@@ -106,6 +136,11 @@ class ProductParser {
         return $nodeValues;
     }
 
+    /**
+     * @param $fullParsedProducts
+     * @return array
+     * @throws \Exception
+     */
     private function getProductsFromArray( $fullParsedProducts    )
     {
         $products = array();

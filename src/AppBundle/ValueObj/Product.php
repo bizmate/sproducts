@@ -8,16 +8,38 @@
 
 namespace AppBundle\ValueObj;
 
+/**
+ * Class Product
+ * @package AppBundle\ValueObj
+ */
 class Product {
 
+    /**
+     * @var
+     */
     private $title;
 
+    /**
+     * @var string
+     */
     private $unitPrice;
 
+    /**
+     * @var string
+     */
     private $size;
 
+    /**
+     * @var
+     */
     private $description;
 
+    /**
+     * @param $title
+     * @param $unitPrice
+     * @param $size
+     * @param $description
+     */
     function __construct($title, $unitPrice, $size, $description)
     {
         $this->title = $title;

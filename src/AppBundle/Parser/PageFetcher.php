@@ -22,6 +22,9 @@ class PageFetcher {
      */
     private $guzzle;
 
+    /**
+     * @var string
+     */
     private $cookieString;
 
     /**
