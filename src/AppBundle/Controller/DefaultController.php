@@ -17,7 +17,6 @@ class DefaultController extends Controller
         $productParser = $this->get('product.parser');
         $products = $productParser->getProducts($url);
 
-
         return $this->render('default/index.html.twig', array(
             'products' => $products,
         ));
